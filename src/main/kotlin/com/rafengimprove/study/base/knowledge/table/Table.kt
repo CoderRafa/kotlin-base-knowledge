@@ -1,11 +1,15 @@
 package com.rafengimprove.study.base.knowledge.table
 
+import org.slf4j.LoggerFactory
+import java.lang.RuntimeException
+
 class Table(
     private val length: Double,
     private val width: Double,
     private var area: Double = length * width,
     private val items: MutableList<Item> = mutableListOf()
 ) {
+    private val log = LoggerFactory.getLogger(Table::class.java)
 
     init {
         require(length > 0.0 && width > 0.0)
@@ -26,8 +30,7 @@ class Table(
             area = availableSpace
             area
         } else {
-            println("There is not enough space on the table")
-            area
+            throw RuntimeException("There is not enough space on the table")
         }
     }
 
@@ -46,62 +49,10 @@ class Table(
             "Table(items=${items.joinToString()})"
         }
     }
-}
 
-data class Item(
-    val name: String,
-    val description: String,
-    val length: Double,
-    val width: Double
-) {
-    val area by lazy { length * width }
-}
-
-fun main() {
-    val table = Table(10.0, 5.0)
-    table.putItemOnTable(
-        Item(
-            "Monitor",
-            "Very expensive",
-            10.0,
-            2.0
-        )
-    )
-
-    table.putItemOnTable(
-        Item(
-            "Lamp",
-            "Very expensive",
-            10.0,
-            3.0
-        )
-    )
-
-    println(table)
-
-    table.removeItemFromTable(
-        Item(
-            "Lamp",
-            "Very expensive",
-            10.0,
-            3.0
-        )
-    )
-    println(table)
-
-    val anotherTable = Table(10.0, 10.0)
-    anotherTable.putItemOnTable(
-        Item(
-            "Lamp",
-            "Very expensive",
-            0.0,
-            0.0
-        )
-    )
-
-    println(anotherTable)
-
-    val zeroTable = Table(1.0, 0.0)
-
+    fun countItems(): Int {
+        log.debug("Count items on the table")
+        return items.size
+    }
 }
 
