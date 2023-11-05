@@ -1,7 +1,6 @@
 package com.rafengimprove.study.base.knowledge.table
 
 import org.slf4j.LoggerFactory
-import java.lang.RuntimeException
 
 class Table(
     private val length: Double,
@@ -16,12 +15,8 @@ class Table(
     }
 
     fun putItemOnTable(item: Item): Double {
-        if (area == 0.0) {
-            println("Nothing can be put on this table")
-            return 0.0
-        } else if (item.area == 0.0) {
-            println("This item doesn't exist and can't be put on the table")
-            return area
+        if (item.area == 0.0) {
+            throw ItemWithoutAreaException("This item doesn't exist and can't be put on the table")
         }
 
         val availableSpace = area - item.area
@@ -30,7 +25,7 @@ class Table(
             area = availableSpace
             area
         } else {
-            throw RuntimeException("There is not enough space on the table")
+            throw ThereIsNotEnoughSpaceOnTheTable("There is not enough space on the table")
         }
     }
 
@@ -55,4 +50,7 @@ class Table(
         return items.size
     }
 }
+
+class ItemWithoutAreaException(message: String): RuntimeException(message)
+class ThereIsNotEnoughSpaceOnTheTable(message: String): RuntimeException(message)
 
