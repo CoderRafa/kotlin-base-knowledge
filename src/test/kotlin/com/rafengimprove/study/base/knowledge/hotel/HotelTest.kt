@@ -1,5 +1,6 @@
 package com.rafengimprove.study.base.knowledge.hotel
 
+import com.rafengimprove.study.base.knowledge.hotel.common.function.createHotel
 import com.rafengimprove.study.base.knowledge.hotel.model.dto.*
 import com.rafengimprove.study.base.knowledge.hotel.model.dto.HotelRoomType.*
 import org.assertj.core.api.Assertions
@@ -26,7 +27,7 @@ class HotelTest {
     }
 
     private fun changeRooms(hotel: Hotel, oldHotelRoom: HotelRoom, newHotelRoom: HotelRoom) {
-        if(hotel.hotelRooms.contains(oldHotelRoom)) {
+        if (hotel.hotelRooms.contains(oldHotelRoom)) {
             hotel.hotelRooms.remove(oldHotelRoom)
 
 //            when(oldHotelRoom.hotelRoomType) {
@@ -34,56 +35,8 @@ class HotelTest {
 //            }
 
 
-        }else{
+        } else {
             throw RuntimeException("There isn't such a room in this hotel")
         }
     }
-    private fun createHotel() = Hotel(
-        "Metropolis", "Very expensive hotel", 10, 150, 20, 50, 80,
-        mutableListOf(
-            HotelRoom(
-                SINGLE,
-                listOf<Room>(
-                    Room(
-                        RoomType.BEDROOM,
-                        listOf<Furniture>(
-                            Furniture(FurnitureType.SINGLE_BED, 1),
-                            Furniture(FurnitureType.BEDSIDE_CABINET, 2),
-                            Furniture(FurnitureType.TABLE, 1),
-                            Furniture(FurnitureType.CHAIR, 2),
-                        )
-                    ),
-                    Room(
-                        RoomType.BATHROOM,
-                        listOf<Furniture>(
-                            Furniture(FurnitureType.RUG, 1),
-                            Furniture(FurnitureType.BATHROOM_CABINET, 1)
-                        )
-                    )
-                )
-            ),
-            HotelRoom(
-                DOUBLE,
-                listOf<Room>(
-                    Room(
-                        RoomType.BEDROOM,
-                        listOf<Furniture>(
-                            Furniture(FurnitureType.DOUBLE_BED, 1),
-                            Furniture(FurnitureType.BEDSIDE_CABINET, 2),
-                            Furniture(FurnitureType.TABLE, 1),
-                            Furniture(FurnitureType.CHAIR, 2),
-                            Furniture(FurnitureType.WARDROBE, 1),
-                        )
-                    ),
-                    Room(
-                        RoomType.BATHROOM,
-                        listOf<Furniture>(
-                            Furniture(FurnitureType.RUG, 1),
-                            Furniture(FurnitureType.BATHROOM_CABINET, 2)
-                        )
-                    )
-                )
-            )
-        )
-    )
 }
