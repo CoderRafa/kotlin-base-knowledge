@@ -1,7 +1,5 @@
 package com.rafengimprove.study.base.knowledge.book.chapter4
 
-import com.sun.tools.javac.util.Context
-import javax.swing.text.AttributeSet
 
 // when you inherit a class you should initialize its properties
 
@@ -15,7 +13,7 @@ class TwitterUser(nickname: String): User1(nickname) {}
 open class Button2
 
 class RadioButton: Button2()
-class RadioButton1: Button2()
+class RadioButton1(): Button2()
 
 // if you want to make sure that no instances of the class can be created make the constructor private
 
@@ -25,28 +23,30 @@ class Secretive private constructor()
 // constructor or constructors you should declare its constructors
 
 open class View1 {
-    constructor(ctx: Context) {
+    constructor(ctx: Con) {
 
     }
 
-    constructor(ctx: Context, style: Style)
+    constructor(ctx: Con, style: Style)
 }
 
 class myButton: View1 {
-    constructor(ctx: Context): super(ctx) {
+    constructor(ctx: Con): super(ctx) {
 
     }
 
-    constructor(ctx: Context, style: Style): super(ctx, style)
+    constructor(ctx: Con, style: Style): super(ctx, style)
 }
 
 // here we delegate the constructor implementation to the super class
 // you can also delegate the constructor implementation to another class
 
 class MyButtonDelegated: View1 {
-    constructor(ctx: Context, ): this(ctx, Style("Hello"))
+    constructor(ctx: Con, ): this(ctx, Style("Hello"))
 
-    constructor(ctx: Context, style: Style): super(ctx, style)
+    constructor(ctx: Con, style: Style): super(ctx, style)
 }
 
 class Style(val hello: String) {}
+
+class Con(val hello: String) {}

@@ -2,7 +2,8 @@ package com.rafengimprove.study.base.knowledge.hotel.rule
 
 import com.rafengimprove.study.base.knowledge.hotel.model.dto.Hotel
 import com.rafengimprove.study.base.knowledge.hotel.model.dto.HotelRoom
-import com.rafengimprove.study.base.knowledge.hotel.model.dto.HotelRoomStatus
+import com.rafengimprove.study.base.knowledge.hotel.model.dto.HotelRoomStatus.READY
+import com.rafengimprove.study.base.knowledge.hotel.model.dto.HotelRoomType.*
 
 interface RuleFactory {
     fun createHotelRoomExchangeRule(): ExchangeRule
@@ -13,10 +14,9 @@ class BasicRuleFactoryImpl : RuleFactory {
     override fun createHotelRoomExchangeRule(): ExchangeRule {
         return object : ExchangeRule {
             override fun exchange(room: HotelRoom, hotel: Hotel): HotelRoom {
-                return hotel.hotelRooms.firstOrNull { it.hotelRoomType == room.hotelRoomType && it.status == HotelRoomStatus.READY }
+                return hotel.hotelRooms.firstOrNull { it.hotelRoomType == room.hotelRoomType && it.status == READY }
                     ?: throw HotelRoomNotFoundException()
             }
-
         }
     }
 
@@ -33,33 +33,67 @@ class BasicRuleFactoryImpl : RuleFactory {
 
 class MediumRuleFactoryImpl : RuleFactory {
     override fun createHotelRoomExchangeRule(): ExchangeRule {
-        TODO("Not yet implemented")
-    }
+        return object : ExchangeRule {
+            override fun exchange(room: HotelRoom, hotel: Hotel): HotelRoom {
+                return when (room.hotelRoomType) {
+                    SINGLE -> hotel.hotelRooms.firstOrNull {
+                        it.hotelRoomType == DOUBLE && it.status == READY
+                    } ?: throw HotelRoomNotFoundException()
 
-    override fun createServicesRule(): ServiceRule {
-        TODO("Not yet implemented")
-    }
-
-}
-
-class LuxuryRuleFactoryImpl: RuleFactory {
-    private var isExtraServicesEnabled = false
-    override fun createHotelRoomExchangeRule(): ExchangeRule {
-        val canImproveHotelRoom: Boolean = false
-        if (!canImproveHotelRoom) isExtraServicesEnabled = true
-        TODO("Not yet implemented")
-    }
-
-    override fun createServicesRule(): ServiceRule {
-        if (isExtraServicesEnabled) {
-            //somthing else
-        } else {
-            // one option
+                    DOUBLE, PENTHOUSE -> hotel.hotelRooms.firstOrNull {
+                        it.hotelRoomType == PENTHOUSE && it.status == READY
+                    } ?: throw HotelRoomNotFoundException()
+                }
+            }
         }
-        TODO("Not yet implemented")
+    }
+
+    override fun createServicesRule(): ServiceRule {
+        return object : ServiceRule {
+            override fun isWelcomeBucketNeeded(): Boolean = false
+            override fun isBreakfastFree(): Boolean = true
+            override fun discountForServicesRate(): Int = 10
+        }
     }
 
 }
+
+class LuxuryRuleFactoryImpl : RuleFactory {
+    private var isExtraServicesEnabled = false
+    private var canImproveHotelRoom: Boolean = false
+    override fun createHotelRoomExchangeRule(): ExchangeRule {
+        return object : ExchangeRule {
+            override fun exchange(room: HotelRoom, hotel: Hotel): HotelRoom {
+                val isAvailable = hotel.hotelRooms.firstOrNull { it.hotelRoomType == PENTHOUSE && it.status == READY }
+                if (isAvailable != null) {
+                    canImproveHotelRoom = true
+                    return isAvailable
+                }
+                if (!canImproveHotelRoom) isExtraServicesEnabled = true
+                throw HotelRoomNotFoundException()
+            }
+        }
+    }
+
+    override fun createServicesRule(): ServiceRule {
+        return if (isExtraServicesEnabled) {
+            object : ServiceRule, ExtraServiceRule {
+                override fun isWelcomeBucketNeeded(): Boolean = true
+                override fun isBreakfastFree(): Boolean = true
+                override fun discountForServicesRate(): Int = 60
+                override fun isPersonalDriver(): Boolean = true
+                override fun isOperaTickets(): Boolean = true
+            }
+        } else {
+            object : ServiceRule {
+                override fun isWelcomeBucketNeeded(): Boolean = true
+                override fun isBreakfastFree(): Boolean = true
+                override fun discountForServicesRate(): Int = 25
+            }
+        }
+    }
+}
+
 
 interface ExchangeRule {
     fun exchange(room: HotelRoom, hotel: Hotel): HotelRoom
@@ -71,4 +105,30 @@ interface ServiceRule {
     fun discountForServicesRate(): Int
 }
 
+interface ExtraServiceRule {
+    fun isPersonalDriver(): Boolean
+    fun isOperaTickets(): Boolean
+}
+
 class HotelRoomNotFoundException(message: String = "Room was not found") : RuntimeException(message)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
