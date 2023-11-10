@@ -40,7 +40,11 @@ class MediumRuleFactoryImpl : RuleFactory {
                         it.hotelRoomType == DOUBLE && it.status == READY
                     } ?: throw HotelRoomNotFoundException()
 
-                    DOUBLE, PENTHOUSE -> hotel.hotelRooms.firstOrNull {
+                    DOUBLE, -> hotel.hotelRooms.firstOrNull {
+                        it.hotelRoomType == LUXURY && it.status == READY
+                    } ?: throw HotelRoomNotFoundException()
+
+                    LUXURY, PENTHOUSE -> hotel.hotelRooms.firstOrNull {
                         it.hotelRoomType == PENTHOUSE && it.status == READY
                     } ?: throw HotelRoomNotFoundException()
                 }
@@ -77,7 +81,7 @@ class LuxuryRuleFactoryImpl : RuleFactory {
 
     override fun createServicesRule(): ServiceRule {
         return if (isExtraServicesEnabled) {
-            object : ServiceRule, ExtraServiceRule {
+            object : ServiceRule {
                 override fun isWelcomeBucketNeeded(): Boolean = true
                 override fun isBreakfastFree(): Boolean = true
                 override fun discountForServicesRate(): Int = 60
@@ -103,11 +107,8 @@ interface ServiceRule {
     fun isWelcomeBucketNeeded(): Boolean
     fun isBreakfastFree(): Boolean
     fun discountForServicesRate(): Int
-}
-
-interface ExtraServiceRule {
-    fun isPersonalDriver(): Boolean
-    fun isOperaTickets(): Boolean
+    fun isPersonalDriver(): Boolean = false
+    fun isOperaTickets(): Boolean = false
 }
 
 class HotelRoomNotFoundException(message: String = "Room was not found") : RuntimeException(message)

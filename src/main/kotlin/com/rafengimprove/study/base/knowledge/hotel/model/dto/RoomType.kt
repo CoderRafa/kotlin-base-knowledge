@@ -2,5 +2,6 @@ package com.rafengimprove.study.base.knowledge.hotel.model.dto
 
 enum class RoomType {
     BEDROOM,
-    BATHROOM
+    BATHROOM,
+    LIVING_ROOM
 }

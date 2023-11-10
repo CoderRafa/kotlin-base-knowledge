@@ -91,7 +91,7 @@ class PersonJsonInterface(val name: String) {
     }
 }
 
-// THen if you have a loader function
+// Then if you have a loader function
 fun <T> loadFromJSON(factory: JSONFactory<T>) {}
 
 // And then we will do loadFromJSON(PersonJsonInterface)
