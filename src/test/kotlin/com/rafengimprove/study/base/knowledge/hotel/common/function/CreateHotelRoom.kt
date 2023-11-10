@@ -8,16 +8,17 @@ fun createSingleHotelRoom(status: HotelRoomStatus): HotelRoom {
     listOf(
         Room(
             RoomType.BEDROOM,
-            listOf(
+            mutableListOf(
                 Furniture(FurnitureType.SINGLE_BED, 1),
                 Furniture(FurnitureType.BEDSIDE_CABINET, 2),
                 Furniture(FurnitureType.TABLE, 1),
                 Furniture(FurnitureType.CHAIR, 2),
+                Furniture(FurnitureType.WARDROBE, 1),
             )
         ),
         Room(
             RoomType.BATHROOM,
-            listOf(
+            mutableListOf(
                 Furniture(FurnitureType.RUG, 1),
                 Furniture(FurnitureType.BATHROOM_CABINET, 1)
             )
@@ -33,7 +34,7 @@ fun createDoubleHotelRoom(status: HotelRoomStatus): HotelRoom {
         listOf(
             Room(
                 RoomType.BEDROOM,
-                listOf(
+                mutableListOf(
                     Furniture(FurnitureType.DOUBLE_BED, 1),
                     Furniture(FurnitureType.BEDSIDE_CABINET, 2),
                     Furniture(FurnitureType.TABLE, 1),
@@ -43,7 +44,7 @@ fun createDoubleHotelRoom(status: HotelRoomStatus): HotelRoom {
             ),
             Room(
                 RoomType.BATHROOM,
-                listOf(
+                mutableListOf(
                     Furniture(FurnitureType.RUG, 1),
                     Furniture(FurnitureType.BATHROOM_CABINET, 2)
                 )
@@ -59,7 +60,7 @@ fun createLuxuryHotelRoom(status: HotelRoomStatus): HotelRoom {
         listOf(
             Room(
                 RoomType.BEDROOM,
-                listOf(
+                mutableListOf(
                     Furniture(FurnitureType.QUEEN_SIZE_BED, 1),
                     Furniture(FurnitureType.BEDSIDE_CABINET, 2),
                     Furniture(FurnitureType.TABLE, 1),
@@ -69,7 +70,7 @@ fun createLuxuryHotelRoom(status: HotelRoomStatus): HotelRoom {
             ),
             Room(
                 RoomType.BEDROOM,
-                listOf(
+                mutableListOf(
                     Furniture(FurnitureType.QUEEN_SIZE_BED, 1),
                     Furniture(FurnitureType.BEDSIDE_CABINET, 2),
                     Furniture(FurnitureType.TABLE, 1),
@@ -79,7 +80,7 @@ fun createLuxuryHotelRoom(status: HotelRoomStatus): HotelRoom {
             ),
             Room(
                 RoomType.LIVING_ROOM,
-                listOf(
+                mutableListOf(
                     Furniture(FurnitureType.TABLE, 1),
                     Furniture(FurnitureType.CHAIR, 4),
                     Furniture(FurnitureType.TV, 1),
@@ -88,7 +89,7 @@ fun createLuxuryHotelRoom(status: HotelRoomStatus): HotelRoom {
             ),
             Room(
                 RoomType.BATHROOM,
-                listOf(
+                mutableListOf(
                     Furniture(FurnitureType.RUG, 2),
                     Furniture(FurnitureType.BATHROOM_CABINET, 4)
                 )
@@ -104,7 +105,7 @@ fun createPenthouseHotelRoom(status: HotelRoomStatus): HotelRoom {
         listOf(
             Room(
                 RoomType.BEDROOM,
-                listOf(
+                mutableListOf(
                     Furniture(FurnitureType.KING_SIZE_BED, 1),
                     Furniture(FurnitureType.BEDSIDE_CABINET, 2),
                     Furniture(FurnitureType.TABLE, 1),
@@ -115,7 +116,7 @@ fun createPenthouseHotelRoom(status: HotelRoomStatus): HotelRoom {
             ),
             Room(
                 RoomType.BEDROOM,
-                listOf(
+                mutableListOf(
                     Furniture(FurnitureType.KING_SIZE_BED, 1),
                     Furniture(FurnitureType.BEDSIDE_CABINET, 2),
                     Furniture(FurnitureType.TABLE, 1),
@@ -126,7 +127,7 @@ fun createPenthouseHotelRoom(status: HotelRoomStatus): HotelRoom {
             ),
             Room(
                 RoomType.LIVING_ROOM,
-                listOf(
+                mutableListOf(
                     Furniture(FurnitureType.TABLE, 1),
                     Furniture(FurnitureType.CHAIR, 8),
                     Furniture(FurnitureType.TV, 1),
@@ -135,7 +136,7 @@ fun createPenthouseHotelRoom(status: HotelRoomStatus): HotelRoom {
             ),
             Room(
                 RoomType.BATHROOM,
-                listOf(
+                mutableListOf(
                     Furniture(FurnitureType.RUG, 3),
                     Furniture(FurnitureType.BATHROOM_CABINET, 4)
                 )
