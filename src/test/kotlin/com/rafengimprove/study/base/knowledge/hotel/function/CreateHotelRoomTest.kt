@@ -31,20 +31,9 @@ val baseToDoubleModifier: (hotelRoom: HotelRoom) -> Unit = { hotelRoom ->
 }
 
 val baseToLuxuryModifier: (hotelRoom: HotelRoom) -> Unit = { hotelRoom ->
-    hotelRoom.takeRoom(BEDROOM)
-        .forEach {
-            it.deleteFurniture(SINGLE_BED)
-            it.addFurniture(Furniture(QUEEN_SIZE_BED, 1))
-        }
-    hotelRoom.rooms
-        .find { it.roomType == BATHROOM }
-        ?.furnitureList
-        ?.find { it.furnitureType == RUG }?.let { it.amount = 2 }
-    hotelRoom.rooms
-        .find { it.roomType == BATHROOM }
-        ?.furnitureList
-        ?.find { it.furnitureType == BATHROOM_CABINET }?.let { it.amount = 4 }
-    hotelRoom.changeFurnitureAmount(BATHROOM, RUG, changeAmountOfFurniture(hotelRoom.rooms.))
+    hotelRoom.changeFurnitureAmount(BEDROOM, SINGLE_BED, changeTo(QUEEN_SIZE_BED, 1))
+    hotelRoom.changeFurnitureAmount(BATHROOM, RUG, changeAmountOfFurniture(2))
+    hotelRoom.changeFurnitureAmount(BATHROOM, BATHROOM_CABINET, changeAmountOfFurniture(4))
 }
 
 val baseToPenthouseModifier: (hotelRoom: HotelRoom) -> Unit = {hotelRoom ->

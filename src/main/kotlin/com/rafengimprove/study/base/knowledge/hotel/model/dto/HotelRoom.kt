@@ -14,8 +14,13 @@ fun HotelRoom.changeFurnitureAmount(roomType: RoomType, furnitureType: Furniture
     return furnitureList.map { modifier(it) }
 }
 
-val changeAmountOfFurniture: (furniture: Furniture) -> Furniture = { furniture ->
-    if (furniture.amount == amount) {
-        furniture.amount = amount
-    }
+fun changeAmountOfFurniture(amount: Int) = { furniture: Furniture ->
+    if (furniture.amount == amount) furniture.amount = amount
+    furniture
+}
+
+fun changeTo(furnitureType: FurnitureType, amount: Int) = { furniture: Furniture ->
+    furniture.furnitureType = furnitureType
+    furniture.amount= amount
+    furniture
 }
