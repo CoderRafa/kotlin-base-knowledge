@@ -47,6 +47,7 @@ class MediumRuleFactoryImpl : RuleFactory {
                     LUXURY, PENTHOUSE -> hotel.hotelRooms.firstOrNull {
                         it.hotelRoomType == PENTHOUSE && it.status == READY
                     } ?: throw HotelRoomNotFoundException()
+                    else -> throw HotelRoomNotFoundException()
                 }
             }
         }
