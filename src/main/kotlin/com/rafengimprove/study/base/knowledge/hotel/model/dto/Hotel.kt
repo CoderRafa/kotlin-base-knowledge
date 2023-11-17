@@ -1,7 +1,5 @@
 package com.rafengimprove.study.base.knowledge.hotel.model.dto
 
-import com.rafengimprove.study.base.knowledge.hotel.common.createRoom
-
 data class Hotel(
     val name: String,
     val description: String,
@@ -15,18 +13,10 @@ data class Hotel(
 
 fun Hotel.changeTo(
     hotelRoomType: HotelRoomType,
-    roomType: RoomType,
-    changeToRoomType: RoomType
+    changeToHotelRoomType: HotelRoomType
 ): List<HotelRoom> {
-
-    val hotelRooms = this.hotelRooms
-        .filter { it.hotelRoomType == hotelRoomType }
-
-    val rooms = hotelRooms
-            .map { it.rooms }
-
-    rooms.map { it.removeIf { room -> room.roomType == roomType } }
-    rooms.map { it.add(createRoom(changeToRoomType)) }
-
-    return hotelRooms
+    this.hotelRooms.removeIf { it.hotelRoomType == hotelRoomType }
+    return List(numberOfRooms - this.hotelRooms.size) {
+        createHotelRoomBy(changeToHotelRoomType)
+    }.also { this.hotelRooms.addAll(it) }
 }
