@@ -71,8 +71,8 @@ fun createHotelRoom(
     modifier?.let { it(hotelRoom) }
 }
 
-fun createRooms(roomTypes: List<RoomType>): List<Room> {
-    return roomTypes.map(::createRoom)
+fun createRooms(roomTypes: List<RoomType>): MutableList<Room> {
+    return roomTypes.map(::createRoom).toMutableList()
 }
 
 fun createRoom(roomType: RoomType): Room = when (roomType) {

@@ -20,7 +20,7 @@ fun managerName(employee: Employee): String? = employee.manager?.name
 val ceo = Employee("Da Boss", null)
 val developer = Employee("Bob Smith", ceo )
 
-// we can also combine several safety call operators
+// we can also combine several safe call operators
 class Address(val streetAddress: String, val zipcode: Int, val city: String, val country: String)
 
 class Company(val name: String, val address: Address?)
