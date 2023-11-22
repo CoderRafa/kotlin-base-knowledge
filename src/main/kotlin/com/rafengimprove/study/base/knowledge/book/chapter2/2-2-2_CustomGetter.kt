@@ -18,7 +18,7 @@ class SimpleGetterSetter(val lastname: String) {
         }
 }
 
-fun Rectangle.isSqrt() = height == width
+fun Rectangle.isSqrt() = height == width // here I did the same using an extension function
 fun main() {
     val rec = Rectangle(5,5)
 //    println(rec.isSquare)

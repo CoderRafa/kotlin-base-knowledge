@@ -13,6 +13,7 @@ infix fun Any.to(other: Any) = Pair(this, other)
 
 // Destructuring
 fun main() {
+    // we can assign two variables at once to a Pair (destructuring)
     val (number, name) = 1 to "one"
     println(number)
 }

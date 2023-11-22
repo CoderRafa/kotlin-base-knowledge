@@ -35,8 +35,8 @@ val sum = { x: Int, y: Int -> x + y }
 // if we write the full code without contractions
 fun fullForm(people: List<Person>) {
     people.maxBy({ p: Person -> p.age })
-    // we can take lam
-    // bda out of parentheses
+    // we can take lambda
+    // out of parentheses
     people.maxBy() { p: Person -> p.age }
     // when lambda is the only argument in a function we can emit the parentheses
     people.maxBy { p: Person -> p.age }

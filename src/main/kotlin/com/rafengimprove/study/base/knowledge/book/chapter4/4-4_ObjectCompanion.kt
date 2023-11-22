@@ -34,7 +34,7 @@ data class PersonObject(val name: String) {
 }
 
 // you can create companion object in a class (equivalent of static fields in Java)
-// it can be nameless and you can access it through the class without creating an instance of a class
+// it can be nameless, and you can access it through the class without creating an instance of a class
 
 class A {
     companion object {

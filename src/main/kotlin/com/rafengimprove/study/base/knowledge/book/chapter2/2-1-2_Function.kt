@@ -1,7 +1,5 @@
 package com.rafengimprove.study.base.knowledge.book.chapter2
 
-import com.rafengimprove.study.base.knowledge.book.chapter2.createRandomRectangle
-
 //It is possible to import a function from another class and package
 
 // Block body
