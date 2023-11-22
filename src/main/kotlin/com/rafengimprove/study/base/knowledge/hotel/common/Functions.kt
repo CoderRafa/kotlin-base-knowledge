@@ -2,6 +2,15 @@ package com.rafengimprove.study.base.knowledge.hotel.common
 
 import com.rafengimprove.study.base.knowledge.hotel.model.dto.*
 
+fun createHotel(name: String = "Metropolis", description: String = "Very expensive hotel") = Hotel(
+    name, description, 10, 150, 20, 50, 20, 80,
+    mutableListOf<HotelRoom>().apply {
+        this.addAll(List(20) { createHotelRoomBy(HotelRoomType.SINGLE) })
+        this.addAll(List(50) { createHotelRoomBy(HotelRoomType.DOUBLE) })
+    }
+)
+
+
 fun createHotelRoom(
     hotelRoomType: HotelRoomType,
     roomTypes: List<RoomType>,

@@ -6,10 +6,10 @@ import com.rafengimprove.study.base.knowledge.hotel.model.dto.LuxuryToAnotherTyp
 import org.springframework.stereotype.Service
 
 @Service
-class ExchangeRoomService {
-    fun exchangeRoom(hotel: Hotel, fromType: HotelRoomType, amount: Int, toType: HotelRoomType): Hotel {
+class ExchangeRoomService(private val hotelService: HotelService) {
+    fun exchangeRoom(fromType: HotelRoomType, toType: HotelRoomType, amount: Int): Hotel {
         val exchangeRoom = LuxuryToAnotherTypeRuleStrategy(amount)
 
-        return exchangeRoom.exchange(fromType, toType).exchange(hotel)
+        return exchangeRoom.exchange(fromType, toType).exchange(hotelService.takeHotel())
     }
 }
